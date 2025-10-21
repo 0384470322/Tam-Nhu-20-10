@@ -1,0 +1,155 @@
+/* Thiết lập chung */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to top, #fceabb, #f8b5a0); /* Nền màu ấm áp */
+    height: 100vh;
+}
+
+/* Ẩn/Hiện màn hình */
+.screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Màn hình khởi đầu --- */
+#start-screen {
+    background: linear-gradient(to right bottom, #ff9a9e, #fad0c4);
+    color: white;
+}
+#start-screen h1 {
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+#startButton {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 50px;
+    background-color: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+#startButton:hover {
+    transform: scale(1.05);
+    background-color: #e53956;
+}
+
+/* --- Màn hình chính --- */
+#main-screen {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end; /* Cây nằm dưới */
+    padding: 50px;
+}
+
+/* Khung Chứa Lời Chúc (Phần bên trái) */
+#message-box {
+    width: 45%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideInLeft 1.5s ease-out;
+    color: #333;
+    align-self: center; /* Căn giữa theo chiều dọc */
+}
+.letter-heading {
+    color: #ff4d6d;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff4d6d;
+    padding-bottom: 10px;
+}
+.letter-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.signature {
+    margin-top: 30px;
+    text-align: right;
+    font-style: italic;
+    font-weight: bold;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+
+/* --- Cây (Phần bên phải) --- */
+#tree-container {
+    width: 45%;
+    height: 90%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    animation: slideInRight 1.5s ease-out;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Thân cây */
+.tree-trunk {
+    width: 30px;
+    height: 80%;
+    background-color: #8b4513; /* Màu nâu */
+    position: absolute;
+    bottom: 0;
+    border-radius: 15px 15px 0 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Vị trí chung của "Tán cây" nơi các cánh hoa/chữ xuất hiện */
+#tree {
+    position: absolute;
+    bottom: 50%; /* Nằm phía trên thân cây */
+    width: 100%;
+    height: 50%;
+    transform-style: preserve-3d;
+}
+
+/* Style cho các cánh hoa/chữ (sẽ nở dần) */
+.bloom {
+    position: absolute;
+    font-size: 1.5em;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.bloom.visible {
+    opacity: 1;
+    transform: scale(1);
+    animation: pulseBloom 3s infinite alternate; /* Hiệu ứng nhấp nháy cho hoa nở */
+}
+
+@keyframes pulseBloom {
+    from { transform: scale(1); opacity: 0.9; }
+    to { transform: scale(1.1); opacity: 1; }
+}
